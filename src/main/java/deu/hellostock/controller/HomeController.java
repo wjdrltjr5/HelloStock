@@ -23,7 +23,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(){
-        return "board";
+        return "/board";
     }
     @GetMapping("/signin")
     public String signin(){
