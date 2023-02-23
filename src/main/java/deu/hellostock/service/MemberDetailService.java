@@ -29,7 +29,9 @@ public class MemberDetailService implements UserDetailsService {
 
         Member member = memberRepository.findByUsername(username).orElseThrow(() ->
                 new RuntimeException("해당 사용자가 존재하지 않습니다."));
-        session.setAttribute("member",new SessionDto(member));
+        if(member != null){
+            session.setAttribute("member", new SessionDto(member));
+        }
         return new MemberDetails(member);
     }
 

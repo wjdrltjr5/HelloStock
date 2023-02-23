@@ -1,5 +1,6 @@
 package deu.hellostock.config;
 
+import deu.hellostock.entity.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,7 +22,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
         return http.authorizeRequests()
-                .antMatchers("*").permitAll()
+               // .antMatchers("/board-write").hasRole("ROLE_USER")
+                .antMatchers("/","/stock").permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
@@ -34,10 +36,4 @@ public class WebSecurityConfig {
                 .and().build();
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf().disable();
-//        http.authorizeRequests()
-//                .antMatchers("*").permitAll();
-//    }
 }
