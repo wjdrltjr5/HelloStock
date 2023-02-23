@@ -43,4 +43,8 @@ public class HomeController {
         memberService.signUp(memberDto);
         return "redirect:/";
     }
+    @GetMapping("/stock")
+    public String stock(){
+        return "/stock";
+    }
 }
