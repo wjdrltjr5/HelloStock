@@ -1,0 +1,35 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head.html::head">
+</head>
+<body>
+<header th:replace="header.html :: header"></header>
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="nav.html :: nav"></nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">글작성</h1>
+            </div>
+            <form action="/board" method="post" th:object="${board}">
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="title" th:field="*{title}">
+                <div th:errors="*{title}" style="color: #dc3545"></div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10"></textarea>
+            </div>
+            <button type="submit">작성</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+<script src="/js/stock.js"></script>
+</body>
+</html>
