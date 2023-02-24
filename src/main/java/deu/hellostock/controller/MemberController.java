@@ -1,10 +1,8 @@
 package deu.hellostock.controller;
 
 import deu.hellostock.dto.MemberDto;
-import deu.hellostock.entity.Member;
-import deu.hellostock.entity.Role;
-import deu.hellostock.repository.MemberRepository;
 import deu.hellostock.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,15 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @Slf4j
-public class HomeController {
+@RequiredArgsConstructor
+public class MemberController {
 
-    @Autowired
-    MemberService memberService;
+    private final MemberService memberService;
 
-    @GetMapping("/")
-    public String home(){
-        return "/board";
-    }
     @GetMapping("/signin")
     public String signin(){
         return "/signin";
@@ -41,10 +35,7 @@ public class HomeController {
 //            return"/signup";
 //        }
         memberService.signUp(memberDto);
-        return "redirect:/";
+        return "redirect:/signin";
     }
-    @GetMapping("/stock")
-    public String stock(){
-        return "/stock";
-    }
+
 }

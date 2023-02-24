@@ -5,11 +5,14 @@ import deu.hellostock.dto.SessionDto;
 import deu.hellostock.entity.Board;
 import deu.hellostock.entity.Member;
 import deu.hellostock.repository.BoardRepository;
-import deu.hellostock.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -28,4 +31,19 @@ public class BoardService {
                 .member(member).build();
         boardRepository.save(board);
     }
+
+    public List<BoardDto> findAll(){
+        return boardRepository.findAll().stream().map(this::entityToDto).collect(Collectors.toList());
+    }
+    private BoardDto entityToDto(Board board) {
+        return BoardDto.builder()
+                .id(board.getBoardid())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .nickname(board.getNickname())
+                .createTime(board.getCreateDate())
+                .updateTime(board.getUpdateDate())
+                .build();
+    }
+
 }

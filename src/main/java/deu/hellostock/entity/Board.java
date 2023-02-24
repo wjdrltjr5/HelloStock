@@ -2,6 +2,7 @@ package deu.hellostock.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Builder
+@Getter
 @AllArgsConstructor
 public class Board extends TimeEntity {
 
