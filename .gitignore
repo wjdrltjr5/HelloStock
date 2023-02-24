@@ -7,6 +7,8 @@ build/
 
 test/
 
+application-db.properties
+
 ### STS ###
 .apt_generated
 .classpath

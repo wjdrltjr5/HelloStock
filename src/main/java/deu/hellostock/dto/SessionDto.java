@@ -11,13 +11,14 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 public class SessionDto implements Serializable {
-
+    private Long memberid;
     private String username;
     private String nickname;
     private String password;
     private Role role;
 
     public SessionDto(Member member) {
+        this.memberid = member.getId();
         this.username = member.getUsername();
         this.nickname = member.getNickname();
         this.password = member.getPassword();

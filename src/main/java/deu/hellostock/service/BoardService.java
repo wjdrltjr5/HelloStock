@@ -35,12 +35,31 @@ public class BoardService {
     public List<BoardDto> findAll(){
         return boardRepository.findAll().stream().map(this::entityToDto).collect(Collectors.toList());
     }
+    public BoardDto findBoard(Long boardId){
+        return boardRepository.findById(boardId).map(this::entityToDto).orElseThrow(() ->
+                new RuntimeException("게시글이 존재하지 않습니다."));
+    }
+    @Transactional
+    public void update(Long boardId,BoardDto boardDto){
+        Board board = boardRepository.findById(boardId).orElseThrow(() ->
+                new RuntimeException("게시글이 존재하지 않습니다."));
+        board.update(boardDto);
+    }
+    @Transactional
+    public void delete(Long boardId){
+        boardRepository.deleteById(boardId);
+    }
+    public List<BoardDto> search(String title,String content){
+        return boardRepository.findByTitleContainsOrContentContains(title,content).stream().map(this::entityToDto).collect(Collectors.toList());
+    }
+
     private BoardDto entityToDto(Board board) {
         return BoardDto.builder()
                 .id(board.getBoardid())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .nickname(board.getNickname())
+                .member(board.getMember())
                 .createTime(board.getCreateDate())
                 .updateTime(board.getUpdateDate())
                 .build();

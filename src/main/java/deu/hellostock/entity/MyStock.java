@@ -17,7 +17,7 @@ public class MyStock {
     @Id @GeneratedValue
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberid")
     private Member member;
 

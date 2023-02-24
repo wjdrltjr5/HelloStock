@@ -1,5 +1,6 @@
 package deu.hellostock.entity;
 
+import deu.hellostock.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,11 +23,14 @@ public class Board extends TimeEntity {
 
     private String title;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberid")
     private Member member;
 
     private String nickname;
 
+    public void update(BoardDto boardDto){
+        this.content = boardDto.getContent();
+    }
 
 }

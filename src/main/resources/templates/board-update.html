@@ -11,17 +11,17 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">글작성</h1>
             </div>
-            <form action="/board" method="post" th:object="${board}">
+            <form th:action="@{/board/{id}/edit(id=${board.id})}" th:method="put" th:object="${board}">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="title" th:field="*{title}">
+                <input type="text" class="form-control" id="title" name="title" placeholder="title" th:field="*{title}" disabled>
                 <div th:errors="*{title}" style="color: #dc3545"></div>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10" th:text="*{content}"></textarea>
             </div>
-            <button type="submit">작성</button>
+            <button type="submit">수정</button>
             </form>
         </main>
     </div>
