@@ -37,8 +37,8 @@
                       th:text="${board.title}">random</a>
               </td>
               <td th:text="${board.nickname}">data</td>
-              <td th:text="${#temporals.format(board.createTime,'yyyy-MM-dd')}">placeholder</td>
-              <td th:text="${#temporals.format(board.updateTime,'yyyy-MM-dd')}">text</td>
+              <td th:text="${#temporals.format(board.createTime,'yyyy-MM-dd-HH-mm')}">placeholder</td>
+              <td th:text="${#temporals.format(board.updateTime,'yyyy-MM-dd-HH-mm')}">text</td>
             </tr>
           </tbody>
         </table>
