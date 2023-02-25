@@ -1,6 +1,9 @@
 package deu.hellostock.repository;
 
 import deu.hellostock.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +14,10 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     @Override
     @EntityGraph(attributePaths = {"member"})
     Optional<Board> findById(Long aLong);
-    List<Board> findByTitleContainsOrContentContains(String title,String content);
+
+    @Override
+    Page<Board> findAll(Pageable pageable);
+
+    Page<Board> findByTitleContainsOrContentContains(String title, String content,Pageable pageable);
+
 }

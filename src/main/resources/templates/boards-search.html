@@ -3,7 +3,6 @@
   <head th:replace="head.html::head">
  </head>
   <body>
-
 <header th:replace="header.html :: header"></header>
 <div class="container-fluid">
   <div class="row">
@@ -20,7 +19,7 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
       <br>
-      <div class="table-responsive">
+      <div class="table-responsive" >
         <table class="table table-striped table-sm">
           <thead>
             <tr class="table-secondary">
@@ -46,11 +45,11 @@
       </div>
       <hr>
       <div class="container text-center">
-        <span th:if="${previousPage}">
-          <a style="color: #1a1e21" th:href="@{/(page=${pageNum}-1)}" role="button" ><ion-icon name="caret-back"></ion-icon></a>
+        <span th:if="${previousPage}" >
+          <a style="color: #1a1e21" th:href="@{/boards/search/(q=${keyword},page=${pageNum}-1)}" role="button" ><ion-icon name="caret-back"></ion-icon></a>
         </span>
         <span th:if="${nextPage}">
-          <a style="color: #1a1e21" th:href="@{/(page=${pageNum}+1)}" role="button" ><ion-icon name="caret-forward"></ion-icon></a>
+          <a style="color: #1a1e21" th:href="@{/boards/search/(q=${keyword},page=${pageNum}+1)}" role="button" ><ion-icon name="caret-forward"></ion-icon></a>
         </span>
       </div>
     </main>
@@ -61,6 +60,5 @@
 <script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
 <script src="/js/stock.js"></script>
-
   </body>
 </html>

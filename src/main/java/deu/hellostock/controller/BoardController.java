@@ -2,17 +2,18 @@ package deu.hellostock.controller;
 
 import deu.hellostock.dto.BoardDto;
 import deu.hellostock.dto.SessionDto;
-import deu.hellostock.entity.Member;
 import deu.hellostock.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,9 +25,14 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/")
-    public String home(Model model){
-        List<BoardDto> boards = boardService.findAll();
+    public String home(Model model,@RequestParam(value = "page",defaultValue = "1")int page){
+        PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "boardid"));
+        Page<BoardDto> paging = boardService.findAll(pageRequest);
+        List<BoardDto> boards = paging.getContent();
         model.addAttribute("boards",boards);
+        model.addAttribute("nextPage", paging.hasNext());
+        model.addAttribute("previousPage",paging.hasPrevious());
+        model.addAttribute("pageNum",page);
         return "boards";
     }
 
@@ -76,8 +82,15 @@ public class BoardController {
         return "redirect:/";
     }
     @GetMapping("/boards/search")
-    public String boardSearch(@RequestParam("q")String keyword, Model model){
-        model.addAttribute("boards",boardService.search(keyword,keyword));
-        return "boards";
+    public String boardSearch(@RequestParam("q")String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
+        PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC,"boardid"));
+        Page<BoardDto> paging = boardService.search(keyword, keyword, pageRequest);
+        List<BoardDto> boards = paging.getContent();
+        model.addAttribute("boards", boards);
+        model.addAttribute("nextPage",paging.hasNext());
+        model.addAttribute("previousPage",paging.hasPrevious());
+        model.addAttribute("pageNum",page);
+        model.addAttribute("keyword",keyword);
+        return "boards-search";
     }
 }

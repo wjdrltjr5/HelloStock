@@ -7,6 +7,9 @@ import deu.hellostock.entity.Member;
 import deu.hellostock.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +35,8 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public List<BoardDto> findAll(){
-        return boardRepository.findAll().stream().map(this::entityToDto).collect(Collectors.toList());
+    public Page<BoardDto> findAll(Pageable pageable){
+        return boardRepository.findAll(pageable).map(this::entityToDto);
     }
     public BoardDto findBoard(Long boardId){
         return boardRepository.findById(boardId).map(this::entityToDto).orElseThrow(() ->
@@ -49,8 +52,8 @@ public class BoardService {
     public void delete(Long boardId){
         boardRepository.deleteById(boardId);
     }
-    public List<BoardDto> search(String title,String content){
-        return boardRepository.findByTitleContainsOrContentContains(title,content).stream().map(this::entityToDto).collect(Collectors.toList());
+    public Page<BoardDto> search(String title,String content,Pageable pageable){
+        return boardRepository.findByTitleContainsOrContentContains(title,content,pageable).map(this::entityToDto);
     }
 
     private BoardDto entityToDto(Board board) {
