@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class item {
     private String basDt; // 기준일자
-    private String crtnCd; // 단축코드(종목코드보다 짦으면서 유일성이 보장되는 코드)
+    private String srtnCd; // 단축코드(종목코드보다 짦으면서 유일성이 보장되는 코드)
     private String isinCd; //isin코드
     private String itmsNm; // 종목명
     private String mrktCtg;  // 상장시장

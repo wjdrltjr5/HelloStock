@@ -2,7 +2,10 @@ package deu.hellostock.service;
 
 import deu.hellostock.dto.StockResponse;
 import deu.hellostock.dto.item;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,20 +26,15 @@ public class StockAPIService {
                 .path("/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo")
                 .queryParam("serviceKey",key)
                 .queryParam("numOfRows",10)
-                .queryParam("pageNo",1)
+                .queryParam("pageNo",page)
                 .queryParam("resultType","json")
                 .queryParam("likeItmsNm",URLEncoder.encode(stock,StandardCharsets.UTF_8))
                 .build(true)
                 .toUri();
-            log.info("uri={}",uri);
 
         RestTemplate restTemplate = new RestTemplate();
         StockResponse result = restTemplate.getForObject(uri,StockResponse.class);
         List<item> items = result.getResponse().getBody().getItems().getItem();
-
-//        for (deu.hellostock.dto.item item : items) {
-//            log.info("주식 result = {}",item);
-//        }
         return items;
     }
     public List<item> getStocks(int page, String stock){
@@ -46,18 +44,13 @@ public class StockAPIService {
                 .queryParam("numOfRows",10)
                 .queryParam("pageNo",1)
                 .queryParam("resultType","json")
-                .queryParam("likeItmsNm",URLEncoder.encode(stock,StandardCharsets.UTF_8))
+                .queryParam("itmsNm",URLEncoder.encode(stock,StandardCharsets.UTF_8))
                 .build(true)
                 .toUri();
-        log.info("uri={}",uri);
 
         RestTemplate restTemplate = new RestTemplate();
         StockResponse result = restTemplate.getForObject(uri,StockResponse.class);
         List<item> items = result.getResponse().getBody().getItems().getItem();
-
-        for (deu.hellostock.dto.item item : items) {
-            log.info("주식 result = {}",item);
-        }
         return items;
     }
 

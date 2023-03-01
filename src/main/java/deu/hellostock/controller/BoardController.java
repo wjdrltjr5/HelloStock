@@ -82,7 +82,7 @@ public class BoardController {
         return "redirect:/";
     }
     @GetMapping("/boards/search")
-    public String boardSearch(@RequestParam("q")String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
+    public String boardSearch(@RequestParam("keyword")String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
         PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC,"boardid"));
         Page<BoardDto> paging = boardService.search(keyword, keyword, pageRequest);
         List<BoardDto> boards = paging.getContent();

@@ -21,6 +21,6 @@ public class MyStock {
     @JoinColumn(name = "memberid")
     private Member member;
 
-    private Long stockid;
+    private String stock;
 
 }

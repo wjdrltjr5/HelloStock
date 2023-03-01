@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 test/
-
+application-apikey.properties
 application-db.properties
 
 ### STS ###
