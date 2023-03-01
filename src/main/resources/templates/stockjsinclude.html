@@ -1,0 +1,51 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <script th:inline="javascript" th:fragment="stockjs">
+    /* globals Chart:false, feather:false */
+    const labels = [[${labels}]];
+    const data = [[${data}]];
+    (() => {
+      'use strict'
+
+      feather.replace({ 'aria-hidden': 'true' })
+
+      // Graphs
+      const ctx = document.getElementById('myChart')
+      // eslint-disable-next-line no-unused-vars
+      const myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            data,
+            lineTension: 0,
+            backgroundColor: 'transparent',
+            borderColor: '#007bff',
+            borderWidth: 4,
+            pointBackgroundColor: '#007bff'
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: false
+              }
+            }]
+          },
+          legend: {
+            display: false
+          }
+        }
+      })
+    })()
+
+  </script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

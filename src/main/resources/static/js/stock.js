@@ -12,12 +12,14 @@
     type: 'line',
     data: {
       labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
+        '날짜1',
+        '날짜2',
+        '날짜3',
         'Wednesday',
         'Thursday',
         'Friday',
+        'Saturday',
+        'Saturday',
         'Saturday'
       ],
       datasets: [{
@@ -28,7 +30,9 @@
           24003,
           23489,
           24092,
-          12034
+          12034,
+          22222,
+          11212
         ],
         lineTension: 0,
         backgroundColor: 'transparent',

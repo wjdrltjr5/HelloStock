@@ -29,6 +29,9 @@ public class StockService {
     public List<item> searchStocks(int page,String keyword){
         return stockAPIService.searchStocks(page,keyword);
     }
+    public List<item> getStock(int page,String keyword){
+        return stockAPIService.getStock(page,keyword);
+    }
 
 }
 

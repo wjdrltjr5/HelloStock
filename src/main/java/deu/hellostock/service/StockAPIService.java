@@ -2,10 +2,7 @@ package deu.hellostock.service;
 
 import deu.hellostock.dto.StockResponse;
 import deu.hellostock.dto.item;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.cfg.Environment;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -37,7 +34,7 @@ public class StockAPIService {
         List<item> items = result.getResponse().getBody().getItems().getItem();
         return items;
     }
-    public List<item> getStocks(int page, String stock){
+    public List<item> getStock(int page, String stock){
         URI uri = UriComponentsBuilder.fromUriString("https://apis.data.go.kr")
                 .path("/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo")
                 .queryParam("serviceKey",key)
