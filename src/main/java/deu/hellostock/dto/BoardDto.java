@@ -18,12 +18,10 @@ public class BoardDto {
 
     @NotBlank(message = "제목을 입력해주세요")
     private String title;
-
     private String content;
-
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
     private String nickname;
-    private Member member;
+    private Long memberid;
 
 }

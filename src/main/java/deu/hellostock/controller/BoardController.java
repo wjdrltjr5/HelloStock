@@ -57,7 +57,7 @@ public class BoardController {
         HttpSession session = request.getSession();
         SessionDto member = (SessionDto) session.getAttribute("member");
         BoardDto board = boardService.findBoard(boardId);
-        if (member != null && board.getMember().getId().equals(member.getMemberid())){
+        if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
         model.addAttribute("board", board);

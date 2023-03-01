@@ -62,7 +62,7 @@ public class BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .nickname(board.getNickname())
-                .member(board.getMember())
+                .memberid(board.getMember().getId())
                 .createTime(board.getCreateDate())
                 .updateTime(board.getUpdateDate())
                 .build();

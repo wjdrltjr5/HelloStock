@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board,Long> {
-    @Override
-    @EntityGraph(attributePaths = {"member"})
-    Optional<Board> findById(Long aLong);
 
     @Override
     Page<Board> findAll(Pageable pageable);
