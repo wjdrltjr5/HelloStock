@@ -21,6 +21,7 @@ public class MyStock {
     @JoinColumn(name = "memberid")
     private Member member;
 
-    private String stock;
+    @Embedded
+    private Stock stock;
 
 }

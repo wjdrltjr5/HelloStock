@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -26,5 +28,9 @@ public class Member extends TimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true ,mappedBy = "member")
+    private List<MyStock> myStocks = new ArrayList<>();
+
 
 }
