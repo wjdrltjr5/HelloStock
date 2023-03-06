@@ -1,4 +1,4 @@
-package deu.hellostock.service;
+package deu.hellostock.api;
 
 import deu.hellostock.dto.StockResponse;
 import deu.hellostock.dto.item;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class StockAPIService {
+public class StockAPI {
 
     private final String key = "bwqCbbK0DeKwzuy7C%2F5VPjQqMx7ZtfALYYC2sdz92Y0zcRVgdcHblbIqNNNOKzZ7rB%2BISH26xbEI9%2Bh%2F5D17MA%3D%3D";
 

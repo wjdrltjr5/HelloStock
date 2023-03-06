@@ -1,9 +1,7 @@
 package deu.hellostock.service;
 
+import deu.hellostock.api.StockAPI;
 import deu.hellostock.dto.item;
-import deu.hellostock.entity.Member;
-import deu.hellostock.entity.MyStock;
-import deu.hellostock.repository.MyStockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,16 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class StockService {
 
-    private final MyStockRepository stockRepository;
-    private final StockAPIService stockAPIService;
-
-    @Transactional
-    public void addStock(MyStock myStock){
-        stockRepository.save(myStock);
-    }
-    public List<MyStock> findByMember(Member member){
-        return stockRepository.findByMember(member);
-    }
+    private final StockAPI stockAPIService;
 
     public List<item> searchStocks(int page,String keyword){
         return stockAPIService.searchStocks(page,keyword);

@@ -40,6 +40,7 @@ public class StockController {
     @GetMapping("/stock/{stockname}")
     public String stock(@PathVariable("stockname")String stockName,Model model){
         List<item> stocks = stockService.getStock(1, stockName);
+
         ArrayList<String> labels = stocks.stream().map(item::getBasDt).collect(Collectors.toCollection(ArrayList::new));
         ArrayList<String> datas = stocks.stream().map(item::getClpr).collect(Collectors.toCollection(ArrayList::new));
         Collections.reverse(labels);
