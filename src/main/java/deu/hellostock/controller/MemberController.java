@@ -31,6 +31,7 @@ public class MemberController {
     @PostMapping("/signup")
     public String signupPost(@Validated MemberDto memberDto, BindingResult bindingResult, Model model){
         log.info("memberDto={}",memberDto.toString());
+//        다른거 개발 끝나고 풀기
 //        if(bindingResult.hasErrors()){
 //            return"/signup";
 //        }

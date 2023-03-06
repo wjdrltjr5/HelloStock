@@ -3,17 +3,22 @@ package deu.hellostock.controller;
 import deu.hellostock.dto.item;
 import deu.hellostock.service.StockService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class StockController {
 
     private final StockService stockService;
@@ -35,8 +40,10 @@ public class StockController {
     @GetMapping("/stock/{stockname}")
     public String stock(@PathVariable("stockname")String stockName,Model model){
         List<item> stocks = stockService.getStock(1, stockName);
-        List<String> labels = stocks.stream().map(stock -> stock.getBasDt()).collect(Collectors.toList());
-        List<String> datas = stocks.stream().map(stock -> stock.getClpr()).collect(Collectors.toList());
+        ArrayList<String> labels = stocks.stream().map(item::getBasDt).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<String> datas = stocks.stream().map(item::getClpr).collect(Collectors.toCollection(ArrayList::new));
+        Collections.reverse(labels);
+        Collections.reverse(datas);
         model.addAttribute("stocks",stocks);
         model.addAttribute("labels",labels);
         model.addAttribute("data",datas);

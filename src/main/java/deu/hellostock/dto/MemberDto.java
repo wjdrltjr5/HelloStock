@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,12 +12,12 @@ import javax.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 public class MemberDto {
-    @NotNull
+    @NotBlank(message = "아이디를 입력하세요")
     private String username;
-    @NotNull
+    @NotBlank(message = "비밀번호를 입력하세요")
     @Size(min = 8,max = 20)
     private String password;
-    @NotNull
+    @NotBlank(message = "닉네임을 입력하세요")
     private String nickname;
 }
 
