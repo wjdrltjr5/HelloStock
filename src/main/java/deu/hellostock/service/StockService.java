@@ -1,7 +1,7 @@
 package deu.hellostock.service;
 
 import deu.hellostock.api.StockAPI;
-import deu.hellostock.dto.item;
+import deu.hellostock.dto.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +15,15 @@ public class StockService {
 
     private final StockAPI stockAPIService;
 
-    public List<item> searchStocks(int page,String keyword){
+    public List<Item> searchStocks(int page, String keyword){
         return stockAPIService.searchStocks(page,keyword);
     }
-    public List<item> getStock(int page,String keyword){
+
+    public long totalCount(String keyword){
+        return stockAPIService.totalCount(keyword);
+    }
+
+    public List<Item> getStock(int page, String keyword){
         return stockAPIService.getStock(page,keyword);
     }
 

@@ -21,11 +21,11 @@ public class MemberController {
 
     @GetMapping("/signin")
     public String signin(){
-        return "/signin";
+        return "signin";
     }
     @GetMapping("/signup")
     public String signup(){
-        return "/signup";
+        return "signup";
     }
 
     @PostMapping("/signup")

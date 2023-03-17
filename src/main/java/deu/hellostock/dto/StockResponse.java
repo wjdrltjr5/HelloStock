@@ -1,10 +1,8 @@
 package deu.hellostock.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 @Data
 public class StockResponse {
@@ -30,6 +28,6 @@ public class StockResponse {
     }
     @Data
     public static class items{
-        List<item> item;
+        List<Item> item = new ArrayList<>();
     }
 }

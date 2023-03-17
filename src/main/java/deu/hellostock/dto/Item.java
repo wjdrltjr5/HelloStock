@@ -3,7 +3,7 @@ package deu.hellostock.dto;
 import lombok.Data;
 
 @Data
-public class item {
+public class Item {
     private String basDt; // 기준일자
     private String srtnCd; // 단축코드(종목코드보다 짦으면서 유일성이 보장되는 코드)
     private String isinCd; //isin코드

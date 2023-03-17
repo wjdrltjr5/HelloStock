@@ -45,7 +45,7 @@ public class BoardController {
     public String boardWrite(@Validated @ModelAttribute("board")BoardDto boardDto, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             log.debug("errors = {}",bindingResult);
-            return "/board-write";
+            return "board-write";
         }
         HttpSession session = request.getSession();
         SessionDto member = (SessionDto) session.getAttribute("member");
@@ -61,12 +61,12 @@ public class BoardController {
             model.addAttribute("writer",true);
         }
         model.addAttribute("board", board);
-        return "/board";
+        return "board";
     }
     @GetMapping("/board/{board-id}/edit")
     public String boardUpdateView(@PathVariable("board-id")Long boardId,Model model){
         model.addAttribute("board",boardService.findBoard(boardId));
-        return "/board-update";
+        return "board-update";
     }
 
     @PutMapping("/board/{board-id}/edit")
@@ -82,7 +82,7 @@ public class BoardController {
         return "redirect:/";
     }
     @GetMapping("/boards/search")
-    public String boardSearch(@RequestParam("q")String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
+    public String boardSearch(@RequestParam String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
         PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC,"boardid"));
         Page<BoardDto> paging = boardService.search(keyword, keyword, pageRequest);
         List<BoardDto> boards = paging.getContent();
