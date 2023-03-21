@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -47,14 +48,11 @@ public class StockController {
     @GetMapping("/stock/{stockname}")
     public String stock(@PathVariable("stockname")String stockName,Model model){
         List<Item> stocks = stockService.getStock(1, stockName);
+        Map<String, ArrayList<String>> stockData = stockService.getStockData(1, stockName);
 
-        ArrayList<String> labels = stocks.stream().map(Item::getBasDt).collect(Collectors.toCollection(ArrayList::new));
-        ArrayList<String> datas = stocks.stream().map(Item::getClpr).collect(Collectors.toCollection(ArrayList::new));
-        Collections.reverse(labels);
-        Collections.reverse(datas);
         model.addAttribute("stocks",stocks);
-        model.addAttribute("labels",labels);
-        model.addAttribute("data",datas);
+        model.addAttribute("labels",stockData.get("labels"));
+        model.addAttribute("data",stockData.get("data"));
         return "stock";
     }
 

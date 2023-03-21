@@ -13,7 +13,7 @@
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2" >Stock Information</h1>
         <span th:if="${session.member != null}">
-          <a th:href="www.naver.com" class="btn btn-primary">관심등록</a>
+          <a th:href="@{/mystock/(userid=${session.member.memberid})}" class="btn btn-primary">관심등록</a>
         </span>
       </div>
 

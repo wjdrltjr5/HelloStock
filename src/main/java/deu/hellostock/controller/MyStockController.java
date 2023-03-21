@@ -16,8 +16,9 @@ public class MyStockController {
 
     private final MyStockService myStockService;
 
-    @GetMapping("/mystock/{username}")
-    public String addMyStock(Item item, @PathVariable("username")String username){
+    @GetMapping("/mystock/{userid}")
+    public String addMyStock(Item item, @PathVariable("username")String userid){
+
         return "";
     }
 
