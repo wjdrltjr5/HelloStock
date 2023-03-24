@@ -1,6 +1,6 @@
 package deu.hellostock.service;
 
-import deu.hellostock.dto.MemberDto;
+import deu.hellostock.dto.MemberDTO;
 import deu.hellostock.entity.Member;
 import deu.hellostock.entity.Role;
 import deu.hellostock.repository.MemberRepository;
@@ -18,7 +18,7 @@ public class MemberService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public Member signUp(MemberDto memberDto){
+    public Member signUp(MemberDTO memberDto){
         String password = passwordEncoder.encode(memberDto.getPassword());
         Member member = Member.builder().username(memberDto.getUsername())
                 .nickname(memberDto.getNickname())

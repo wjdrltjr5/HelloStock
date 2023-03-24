@@ -12,9 +12,15 @@
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2" >Stock Information</h1>
-        <span th:if="${session.member != null}">
-          <a th:href="@{/mystock/(userid=${session.member.memberid})}" class="btn btn-primary">관심등록</a>
-        </span>
+
+          <form action="/mystock" method="post" th:if="${session.member != null}">
+            <input th:type="hidden" th:name="memberId" th:value="${session.member.memberid}" th:disabled />
+            <input th:type="hidden" th:name="stockName" th:value="${stocks.get(0).itmsNm}" th:disabled/>
+            <input th:type="hidden" th:name="date" th:value="${stocks.get(0).basDt}" th:disabled/>
+            <input th:type="hidden" th:name="clpr" th:value="${stocks.get(0).clpr}" th:disabled/>
+          <input type="submit" class="btn btn-primary" value="관심등록"/>
+          </form>
+
       </div>
 
       <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>

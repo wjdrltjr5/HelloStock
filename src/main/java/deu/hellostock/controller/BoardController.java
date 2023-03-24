@@ -1,13 +1,12 @@
 package deu.hellostock.controller;
 
-import deu.hellostock.dto.BoardDto;
-import deu.hellostock.dto.SessionDto;
+import deu.hellostock.dto.BoardDTO;
+import deu.hellostock.dto.SessionDTO;
 import deu.hellostock.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +26,8 @@ public class BoardController {
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "page",defaultValue = "1")int page){
         PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC, "boardid"));
-        Page<BoardDto> paging = boardService.findAll(pageRequest);
-        List<BoardDto> boards = paging.getContent();
+        Page<BoardDTO> paging = boardService.findAll(pageRequest);
+        List<BoardDTO> boards = paging.getContent();
         model.addAttribute("boards",boards);
         model.addAttribute("nextPage", paging.hasNext());
         model.addAttribute("previousPage",paging.hasPrevious());
@@ -38,25 +37,25 @@ public class BoardController {
 
     @GetMapping("/board")
     public String boardWriteForm(Model model){
-        model.addAttribute("board",new BoardDto());
+        model.addAttribute("board",new BoardDTO());
         return "board-write";
     }
     @PostMapping("/board")
-    public String boardWrite(@Validated @ModelAttribute("board")BoardDto boardDto, BindingResult bindingResult, HttpServletRequest request){
+    public String boardWrite(@Validated @ModelAttribute("board") BoardDTO boardDto, BindingResult bindingResult, HttpServletRequest request){
         if(bindingResult.hasErrors()){
             log.debug("errors = {}",bindingResult);
             return "board-write";
         }
         HttpSession session = request.getSession();
-        SessionDto member = (SessionDto) session.getAttribute("member");
+        SessionDTO member = (SessionDTO) session.getAttribute("member");
         boardService.write(boardDto,member);
         return "redirect:/";
     }
     @GetMapping("/board/{board-id}")
     public String boardView(@PathVariable("board-id")Long boardId,Model model,HttpServletRequest request){
         HttpSession session = request.getSession();
-        SessionDto member = (SessionDto) session.getAttribute("member");
-        BoardDto board = boardService.findBoard(boardId);
+        SessionDTO member = (SessionDTO) session.getAttribute("member");
+        BoardDTO board = boardService.findBoard(boardId);
         if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
@@ -70,7 +69,7 @@ public class BoardController {
     }
 
     @PutMapping("/board/{board-id}/edit")
-    public String boardUpdate(@PathVariable("board-id")Long boardId,@ModelAttribute("board")BoardDto boardDto,
+    public String boardUpdate(@PathVariable("board-id")Long boardId,@ModelAttribute("board") BoardDTO boardDto,
                               Model model){
         boardService.update(boardId,boardDto);
         model.addAttribute("board",boardDto);
@@ -84,8 +83,8 @@ public class BoardController {
     @GetMapping("/boards/search")
     public String boardSearch(@RequestParam String keyword,@RequestParam(value = "page",defaultValue = "1")int page ,Model model){
         PageRequest pageRequest = PageRequest.of(page-1, 10, Sort.by(Sort.Direction.DESC,"boardid"));
-        Page<BoardDto> paging = boardService.search(keyword, keyword, pageRequest);
-        List<BoardDto> boards = paging.getContent();
+        Page<BoardDTO> paging = boardService.search(keyword, keyword, pageRequest);
+        List<BoardDTO> boards = paging.getContent();
         model.addAttribute("boards", boards);
         model.addAttribute("nextPage",paging.hasNext());
         model.addAttribute("previousPage",paging.hasPrevious());

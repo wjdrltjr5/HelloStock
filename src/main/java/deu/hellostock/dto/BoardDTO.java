@@ -1,11 +1,8 @@
 package deu.hellostock.dto;
 
-import deu.hellostock.entity.Board;
-import deu.hellostock.entity.Member;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-public class BoardDto {
+public class BoardDTO {
     private Long id;
 
     @NotBlank(message = "제목을 입력해주세요")

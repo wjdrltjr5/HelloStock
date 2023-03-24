@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class MyStockDto {
+public class MyStockDTO {
 
     private Long id;
     private Long memberid;
