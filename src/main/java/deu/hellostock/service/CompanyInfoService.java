@@ -1,5 +1,7 @@
 package deu.hellostock.service;
 
+import deu.hellostock.api.StockCompanyInformaionAPI;
+import deu.hellostock.dto.CompanyInfo;
 import deu.hellostock.entity.Corp;
 import deu.hellostock.repository.CorpRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +17,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * xml파일 db등록을 위한 클래스 사용하지 않음
- */
-@RequiredArgsConstructor
-public class CorpService {
-    private final CorpRepository corpRepository;
 
+@RequiredArgsConstructor
+@Service
+public class CompanyInfoService {
+    private final CorpRepository corpRepository;
+    private final StockCompanyInformaionAPI api;
     public void saveCorps(File xmlFile) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -44,6 +45,9 @@ public class CorpService {
             corpRepository.save(corp);
         }
     }
-
-
+    public CompanyInfo getCompanyInfo(String stockCode){
+        Corp corp = corpRepository.findByStockCode(stockCode);
+        CompanyInfo companyInfo = api.getCompanyInfo(corp.getCorpCode());
+        return companyInfo;
+    }
 }

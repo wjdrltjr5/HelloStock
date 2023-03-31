@@ -1,6 +1,8 @@
 package deu.hellostock.controller;
 
+import deu.hellostock.dto.CompanyInfo;
 import deu.hellostock.dto.Item;
+import deu.hellostock.service.CompanyInfoService;
 import deu.hellostock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,7 @@ import java.util.stream.Collectors;
 public class StockController {
 
     private final StockService stockService;
+    private final CompanyInfoService companyInfoService;
 
     @GetMapping("/stocks")
     public String stocks(@RequestParam(value = "page",defaultValue = "1")int page, Model model){
@@ -47,12 +50,17 @@ public class StockController {
     }
     @GetMapping("/stock/{stockname}")
     public String stock(@PathVariable("stockname")String stockName,Model model){
+
         List<Item> stocks = stockService.getStock(1, stockName);
         Map<String, ArrayList<String>> stockData = stockService.getStockData(1, stockName);
+        CompanyInfo companyInfo = companyInfoService.getCompanyInfo(stocks.get(0).getSrtnCd());
+
+        log.info("CompanyInfo = {}", companyInfo);
 
         model.addAttribute("stocks",stocks);
         model.addAttribute("labels",stockData.get("labels"));
         model.addAttribute("data",stockData.get("data"));
+        model.addAttribute("companyInfo",companyInfo);
         return "stock";
     }
 
