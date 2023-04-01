@@ -4,6 +4,7 @@ import deu.hellostock.dto.CompanyInfo;
 import deu.hellostock.dto.Item;
 import deu.hellostock.dto.StockResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,7 +22,9 @@ import java.util.List;
 @Slf4j
 public class StockCompanyInformaionAPI {
 
-    private final String key = "eaf3c76950a59b218ca45c91843f29c5e82f8ba0";
+//    private final String key = "eaf3c76950a59b218ca45c91843f29c5e82f8ba0";
+    @Value("${company.api.key}")
+    private String key;
 
     public CompanyInfo getCompanyInfo(String corpCode){
         URI uri = UriComponentsBuilder.fromUriString("https://opendart.fss.or.kr/api/company.json")
