@@ -22,7 +22,7 @@ import java.util.List;
 @Slf4j
 public class StockCompanyInformaionAPI {
 
-//    private final String key = "eaf3c76950a59b218ca45c91843f29c5e82f8ba0";
+
     @Value("${company.api.key}")
     private String key;
 

@@ -17,8 +17,6 @@ import java.util.List;
 @Slf4j
 public class StockAPI {
 
-//    private final String key = "bwqCbbK0DeKwzuy7C%2F5VPjQqMx7ZtfALYYC2sdz92Y0zcRVgdcHblbIqNNNOKzZ7rB%2BISH26xbEI9%2Bh%2F5D17MA%3D%3D";
-
     @Value("${stock.api.key}")
     private String key;
 
