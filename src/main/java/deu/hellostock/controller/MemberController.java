@@ -34,6 +34,9 @@ public class MemberController {
 //        if(bindingResult.hasErrors()){
 //            return"/signup";
 //        }
+        if (memberService.usernameDuplicationCheck(memberDto.getUsername())){
+            return "redirect:/signup";
+        }
         memberService.signUp(memberDto);
         return "redirect:/signin";
     }

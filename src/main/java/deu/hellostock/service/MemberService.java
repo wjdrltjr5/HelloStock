@@ -30,4 +30,8 @@ public class MemberService {
     public Member findByUserName(String username){
         return memberRepository.findByUsername(username).get();
     }
+
+    public boolean usernameDuplicationCheck(String username){
+        return memberRepository.existsByUsername(username);
+    }
 }
