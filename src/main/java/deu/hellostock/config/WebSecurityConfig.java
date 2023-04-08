@@ -1,6 +1,8 @@
 package deu.hellostock.config;
 
 import deu.hellostock.entity.Role;
+import deu.hellostock.service.CustomOauth2MemberService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,8 +13,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    private final CustomOauth2MemberService customOauth2MemberService;
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -21,7 +25,7 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
-        return http.authorizeRequests()
+        http.authorizeRequests()
                // .antMatchers("/board-write").hasRole("ROLE_USER")
                 .antMatchers("/","/stock").permitAll()
                 .and()
@@ -33,7 +37,11 @@ public class WebSecurityConfig {
                 .logout()
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
-                .and().build();
+                .and()
+                .oauth2Login()
+                .userInfoEndpoint()
+                .userService(customOauth2MemberService);
+        return http.build();
     }
 
 }
