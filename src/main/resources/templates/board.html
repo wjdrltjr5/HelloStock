@@ -29,7 +29,34 @@
               <button class="btn btn-danger" type="submit">삭제</button>
               </form>
             </div>
+            <div class="card">
+              <div class="card-header">댓글 목록</div>
+              <ul class="list-group-flush">
+                <li class="list-group-item">
+                  <span>
+                    <span style="font-size: small">닉네임 ㅋ</span>
+                    <span style="font-size: xx-small">작성일</span>
+                    <button class="badge">수정</button>
+                    <button class="badge">삭제</button>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <hr>
+            <div class="card">
+              <div class="card-header">댓글 작성</div>
+              <form action="#">
+                <input type="hidden" id="boardId" th:value="${board.id}"/>
+                <div class="card-body">
+                  <textarea id="comment" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
+                </div>
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">작성</button>
+                </div>
+              </form>
+            </div>
           </main>
+
         </div>
       </div>
 
