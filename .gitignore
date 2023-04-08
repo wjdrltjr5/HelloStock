@@ -8,7 +8,7 @@ build/
 test/
 application-apikey.properties
 application-db.properties
-
+application-oauth2.properties
 ### STS ###
 .apt_generated
 .classpath
