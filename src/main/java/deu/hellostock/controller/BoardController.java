@@ -1,8 +1,10 @@
 package deu.hellostock.controller;
 
 import deu.hellostock.dto.BoardDTO;
+import deu.hellostock.dto.CommentDTO;
 import deu.hellostock.dto.SessionDTO;
 import deu.hellostock.service.BoardService;
+import deu.hellostock.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
+    private final CommentsService commentsService;
 
     @GetMapping("/")
     public String home(Model model,@RequestParam(value = "page",defaultValue = "1")int page){
@@ -52,13 +55,20 @@ public class BoardController {
         return "redirect:/";
     }
     @GetMapping("/board/{board-id}")
-    public String boardView(@PathVariable("board-id")Long boardId,Model model,HttpServletRequest request){
+    public String boardView(@PathVariable("board-id")Long boardId,Model model,HttpServletRequest request
+            , @RequestParam(value = "commentspage",defaultValue = "1")int page){
+        PageRequest pageRequest = PageRequest.of(page-1, 10);
         HttpSession session = request.getSession();
         SessionDTO member = (SessionDTO) session.getAttribute("member");
         BoardDTO board = boardService.findBoard(boardId);
+        Page<CommentDTO> commentsPaging = commentsService.findAll(pageRequest, boardId);
+        List<CommentDTO> comments = commentsPaging.getContent();
+        long count = commentsPaging.getTotalElements();
         if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
+        model.addAttribute("comments",comments);
+        model.addAttribute("count",count);
         model.addAttribute("board", board);
         return "board";
     }
