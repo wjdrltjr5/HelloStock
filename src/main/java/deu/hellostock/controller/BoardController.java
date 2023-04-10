@@ -56,8 +56,8 @@ public class BoardController {
     }
     @GetMapping("/board/{board-id}")
     public String boardView(@PathVariable("board-id")Long boardId,Model model,HttpServletRequest request
-            , @RequestParam(value = "commentspage",defaultValue = "1")int page){
-        PageRequest pageRequest = PageRequest.of(page-1, 10);
+            , @RequestParam(value = "page",defaultValue = "1")int page){
+        PageRequest pageRequest = PageRequest.of(page-1, 5);
         HttpSession session = request.getSession();
         SessionDTO member = (SessionDTO) session.getAttribute("member");
         BoardDTO board = boardService.findBoard(boardId);
@@ -67,6 +67,9 @@ public class BoardController {
         if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
+        model.addAttribute("commentsNextPage",commentsPaging.hasNext());
+        model.addAttribute("commentsPrePage",commentsPaging.hasPrevious());
+        model.addAttribute("pageNum",page);
         model.addAttribute("comments",comments);
         model.addAttribute("count",count);
         model.addAttribute("board", board);
