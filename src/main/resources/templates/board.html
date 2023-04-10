@@ -76,10 +76,9 @@
             <hr>
             <div class="card">
               <div class="card-header">댓글 작성</div>
-              <form action="#">
-                <input type="hidden" id="boardId" th:value="${board.id}"/>
+              <form th:action="@{/board/{boardId}/comment (boardId=${board.id})}" method="post">
                 <div class="card-body">
-                  <textarea id="comment" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
+                  <textarea name="commentContent" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
                 </div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">작성</button>
