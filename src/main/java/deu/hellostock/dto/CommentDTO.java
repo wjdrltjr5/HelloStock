@@ -12,6 +12,7 @@ import java.util.Date;
 @Setter
 @Builder
 public class CommentDTO {
+    private Long id;
     @NotBlank
     private String commentContent;
     private String nickname;

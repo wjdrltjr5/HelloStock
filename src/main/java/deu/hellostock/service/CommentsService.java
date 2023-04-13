@@ -14,17 +14,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CommentsService {
 
     private final CommentsRepository commentsRepository;
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+    @Transactional
     public void writeComment(HttpSession session,String content,Long boardId){
         SessionDTO sessionMember = (SessionDTO)session.getAttribute("member");
         Board board = boardRepository.findById(boardId).orElse(null);
@@ -37,8 +40,15 @@ public class CommentsService {
         Board board = boardRepository.findById(boardId).orElse(null);
         return commentsRepository.findByBoard(pageable,board).map(this::entityToDto);
     }
+
+    @Transactional
+    public void deleteComment(Long commentId){
+        commentsRepository.deleteById(commentId);
+    }
+
     private CommentDTO entityToDto(Comments comments){
         return CommentDTO.builder()
+                .id(comments.getCommentid())
                 .commentContent(comments.getContent())
                 .time(comments.getUpdateDate())
                 .memberId(comments.getMember().getId())

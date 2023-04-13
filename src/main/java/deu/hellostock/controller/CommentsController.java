@@ -28,5 +28,10 @@ public class CommentsController {
         log.info("content = {}, boardId = {}",commentForm.getCommentContent(),boardId);
         return "redirect:/board/"+String.valueOf(boardId);
     }
+    @DeleteMapping("/board/{boardId}/comment/{commentId}")
+    public String deleteComment(@PathVariable("commentId") long commentId, @PathVariable String boardId){
+        commentsService.deleteComment(commentId);
+        return "redirect:/board/"+boardId;
+    }
 
 }
