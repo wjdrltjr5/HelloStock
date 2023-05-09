@@ -40,5 +40,9 @@ public class MemberController {
         memberService.signUp(memberDto);
         return "redirect:/signin";
     }
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "mypage";
+    }
 
 }
