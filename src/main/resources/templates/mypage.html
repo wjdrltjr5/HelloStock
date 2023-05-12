@@ -14,7 +14,7 @@
         <h1 class="h2" >마이페이지</h1>
       </div>
       <div class = "container text-center">
-        <form class="row g-3 w-100 m-auto">
+        <form class="row g-3 w-100 m-auto" method="post">
           <div class="col-auto">
             <label>
               <input type="text" readonly class="form-control-plaintext"  value="NickName : " />
@@ -22,11 +22,21 @@
           </div>
           <div class="col-auto">
             <label for="nickname">
-              <input type="text" readonly class="form-control-plaintext" id="nickname" value="닉네임입니다."/>
+              <span th:if="${check == true}">
+              <input type="text" readonly class="form-control-plaintext" name="nickname" id="nickname" value="오호라." th:value="${nickname}"/>
+              </span>
+              <span th:if="${check == false}">
+                <input type="text" autofocus class="form-control-plaintext" name="nickname" value="오호라" th:value="${nickname}"/>
+              </span>
             </label>
           </div>
           <div class="col-auto">
+            <span th:if = "${check == true}">
+            <a href="/mypage/nickname" class = "btn btn-primary">닉네임 수정하기</a>
+            </span>
+            <span th:if = "${check == false}">
             <input type="submit" class="btn btn-primary" value="닉네임 수정하기"/>
+            </span>
           </div>
         </form>
         <hr>

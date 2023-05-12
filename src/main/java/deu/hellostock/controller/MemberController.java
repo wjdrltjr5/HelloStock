@@ -1,6 +1,7 @@
 package deu.hellostock.controller;
 
 import deu.hellostock.dto.MemberDTO;
+import deu.hellostock.dto.SessionDTO;
 import deu.hellostock.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
@@ -41,8 +48,23 @@ public class MemberController {
         return "redirect:/signin";
     }
     @GetMapping("/mypage")
-    public String mypage(){
+    public String mypage(Model model, @SessionAttribute("member")SessionDTO member){
+        model.addAttribute("check",true);
+        model.addAttribute("nickname",memberService.getNickname(member.getUsername()));
         return "mypage";
     }
-
+    @GetMapping("/mypage/nickname")
+    public String nickname(Model model,@SessionAttribute("member")SessionDTO member){
+        model.addAttribute("check",false);
+        model.addAttribute("nickname",memberService.getNickname(member.getUsername()));
+        return "mypage";
+    }
+    @PostMapping("/mypage/nickname")
+    public String updateNickname(@RequestParam String nickname, @SessionAttribute("member")SessionDTO member){
+        if (memberService.updateNickname(nickname,member.getUsername())){
+            return "redirect:/mypage";
+        }
+        //에러메시지 추가하기 추후에
+        return "redirect:/mypage/nickname";
+    }
 }
