@@ -28,12 +28,21 @@ public class Member extends TimeEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+    private boolean oauth2;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true ,mappedBy = "member")
     private List<MyStock> myStocks = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "member")
+    private List<Comments> comments = new ArrayList<>();
+
     public void updateNickname(String nickname){
         this.nickname = nickname;
     }
-
+    public void updatePassword(String password){
+        this.password = password;
+    }
 }

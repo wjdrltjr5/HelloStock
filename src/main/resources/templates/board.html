@@ -45,11 +45,13 @@
                 <li class="list-group-item" style="border:#4d5154" th:each="comment:${comments}">
                   <span>
                     <form th:method="delete" th:action="@{/board/{boardId}/comment/{commentId}(boardId = ${board.id}, commentId = ${comment.id})}">
-                    <span style="font-size: small" th:text="${comment.commentContent}">내용입니다 내용입니다</span>
-                    <span style="font-size: xx-small" th:text="${#temporals.format(comment.time,'yyyy-MM-dd')}">작성일</span>
-                    <span style="font-size: xx-small" th:text="${comment.nickname}">작성자</span>
-                    <button class="badge rounded-pill text-bg-secondary" style="border: none">수정</button>
-                    <button type="submit"  class="badge rounded-pill text-bg-danger" style="border: none" role="button">삭제</button>
+                        <span style="font-size: small" th:text="${comment.commentContent}">내용입니다 내용입니다</span>
+                        <span style="font-size: xx-small" th:text="${#temporals.format(comment.time,'yyyy-MM-dd')}">작성일</span>
+                        <span style="font-size: xx-small" th:text="${comment.nickname}">작성자</span>
+                            <span th:if="${comment.getMemberId() == memberId}">
+                                <button class="badge rounded-pill text-bg-secondary" style="border: none">수정</button>
+                                <button type="submit"  class="badge rounded-pill text-bg-danger" style="border: none" role="button">삭제</button>
+                            </span>
                     </form>
                   </span>
 

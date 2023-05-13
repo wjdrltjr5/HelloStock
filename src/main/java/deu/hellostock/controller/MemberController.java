@@ -9,13 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -51,6 +46,7 @@ public class MemberController {
     public String mypage(Model model, @SessionAttribute("member")SessionDTO member){
         model.addAttribute("check",true);
         model.addAttribute("nickname",memberService.getNickname(member.getUsername()));
+        model.addAttribute("oauth2",memberService.isOauth2(member.getMemberid()));
         return "mypage";
     }
     @GetMapping("/mypage/nickname")
@@ -66,5 +62,24 @@ public class MemberController {
         }
         //에러메시지 추가하기 추후에
         return "redirect:/mypage/nickname";
+    }
+    @GetMapping("/mypage/password")
+    public String password(){
+        return "passwordUpdate";
+    }
+    @PatchMapping("mypage/password")
+    public String updatePassword(@RequestParam String password, HttpSession session){
+        log.info("실행 여부 확인 ㅋ");
+        memberService.updatePassword(password,session);
+        session.invalidate();
+        return "redirect:/signin";
+    }
+
+    @DeleteMapping("/mypage")
+    public String deleteMember(HttpSession session){
+        log.info("실행여부확인");
+        memberService.deleteMember(session);
+        session.invalidate();
+        return "redirect:/";
     }
 }

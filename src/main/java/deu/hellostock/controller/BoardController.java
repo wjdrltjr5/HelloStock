@@ -67,6 +67,9 @@ public class BoardController {
         if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
+        if(member != null){
+            model.addAttribute("memberId",member.getMemberid());
+        }
         model.addAttribute("commentsNextPage",commentsPaging.hasNext());
         model.addAttribute("commentsPrePage",commentsPaging.hasPrevious());
         model.addAttribute("pageNum",page);

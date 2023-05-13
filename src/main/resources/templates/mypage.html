@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="head.html::head">
   </head>
+<script>
+  function checkButton(){
+    if(!confirm("회원탈퇴 하시겠습니까?")){
+      return false;
+    }else{
+      return true;
+    }
+  }
+</script>
+
   <body>
 <header th:replace="header.html :: header"></header>
 <div class="container-fluid">
@@ -40,12 +50,14 @@
           </div>
         </form>
         <hr>
-        <div>
-        <button class="btn btn-primary" style="width: auto; display: block">비밀번호 변경</button>
+        <div th:if="${oauth2 == false}">
+        <a href="/mypage/password" class="btn btn-primary" style="display: inline-block;width: auto;">비밀번호 변경</a>
       </div>
         <br>
         <div>
-          <button class="btn btn-danger" style="width: auto ; display: block">회원탈퇴</button>
+          <form th:method="delete" action="/mypage" onsubmit="return checkButton()">
+          <input type="submit" class="btn btn-danger" style="margin: 0 auto; display: block"  value="회원탈퇴"></a>
+          </form>
         </div>
 
       </div>
