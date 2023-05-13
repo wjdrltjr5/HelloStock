@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -27,6 +29,10 @@ public class Board extends TimeEntity {
     @JoinColumn(name = "memberid")
     private Member member;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "board")
+    private List<Comments> comments = new ArrayList<>();
+
+    @Column(unique = true)
     private String nickname;
 
     public void update(BoardDTO boardDto){

@@ -1,0 +1,72 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head.html::head">
+  </head>
+<script>
+  function checkButton(){
+    if(!confirm("회원탈퇴 하시겠습니까?")){
+      return false;
+    }else{
+      return true;
+    }
+  }
+</script>
+
+  <body>
+<header th:replace="header.html :: header"></header>
+<div class="container-fluid">
+  <div class="row">
+    <nav th:replace="nav.html :: nav"></nav>
+
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2" >마이페이지</h1>
+      </div>
+      <div class = "container text-center">
+        <form class="row g-3 w-100 m-auto" method="post">
+          <div class="col-auto">
+            <label>
+              <input type="text" readonly class="form-control-plaintext"  value="NickName : " />
+            </label>
+          </div>
+          <div class="col-auto">
+            <label for="nickname">
+              <span th:if="${check == true}">
+              <input type="text" readonly class="form-control-plaintext" name="nickname" id="nickname" value="오호라." th:value="${nickname}"/>
+              </span>
+              <span th:if="${check == false}">
+                <input type="text" autofocus class="form-control-plaintext" name="nickname" value="오호라" th:value="${nickname}"/>
+              </span>
+            </label>
+          </div>
+          <div class="col-auto">
+            <span th:if = "${check == true}">
+            <a href="/mypage/nickname" class = "btn btn-primary">닉네임 수정하기</a>
+            </span>
+            <span th:if = "${check == false}">
+            <input type="submit" class="btn btn-primary" value="닉네임 수정하기"/>
+            </span>
+          </div>
+        </form>
+        <hr>
+        <div th:if="${oauth2 == false}">
+        <a href="/mypage/password" class="btn btn-primary" style="display: inline-block;width: auto;">비밀번호 변경</a>
+      </div>
+        <br>
+        <div>
+          <form th:method="delete" action="/mypage" onsubmit="return checkButton()">
+          <input type="submit" class="btn btn-danger" style="margin: 0 auto; display: block"  value="회원탈퇴"></a>
+          </form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+
+  </body>
+</html>

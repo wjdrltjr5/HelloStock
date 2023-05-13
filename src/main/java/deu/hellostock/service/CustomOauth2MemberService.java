@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -40,6 +41,7 @@ public class CustomOauth2MemberService implements OAuth2UserService<OAuth2UserRe
         Member member = saveOrUpdate(attributes);
         log.info("member 정보 = {}",member.getUsername());
         session.setAttribute("member", new SessionDTO(member));
+        session.setAttribute("access_token", userRequest.getAccessToken().getTokenValue());
         log.info("attributest = {} , nameAttriby key = {}",attributes.getAttributes(),attributes.getNameAttributeKey());
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_"+member.getRole())),
                 attributes.getAttributes(),attributes.getNameAttributeKey());

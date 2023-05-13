@@ -38,6 +38,7 @@ public class OauthAttributes {
         return Member.builder()
                 .username(this.email)
                 .nickname(this.nickname)
+                .oauth2(true)
                 .role(Role.USER)
                 .build();
     }

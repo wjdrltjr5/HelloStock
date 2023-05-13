@@ -29,26 +29,55 @@
               <button class="btn btn-danger" type="submit">삭제</button>
               </form>
             </div>
+            <br>
             <div class="card">
-              <div class="card-header">댓글 목록</div>
+              <div class="card-header">댓글 목록
+                <span class="badge rounded-pill text-bg-secondary position-relative opacity-75">
+                  Count
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" th:text="${count}">
+
+                <span class="visually-hidden">unread messages</span>
+                </span>
+                </span>
+              </div>
+              <div class="card-body">
               <ul class="list-group-flush">
-                <li class="list-group-item">
+                <li class="list-group-item" style="border:#4d5154" th:each="comment:${comments}">
                   <span>
-                    <span style="font-size: small">닉네임 ㅋ</span>
-                    <span style="font-size: xx-small">작성일</span>
-                    <button class="badge">수정</button>
-                    <button class="badge">삭제</button>
+                    <form th:method="delete" th:action="@{/board/{boardId}/comment/{commentId}(boardId = ${board.id}, commentId = ${comment.id})}">
+                        <span style="font-size: small" th:text="${comment.commentContent}">내용입니다 내용입니다</span>
+                        <span style="font-size: xx-small" th:text="${#temporals.format(comment.time,'yyyy-MM-dd')}">작성일</span>
+                        <span style="font-size: xx-small" th:text="${comment.nickname}">작성자</span>
+                            <span th:if="${comment.getMemberId() == memberId}">
+                                <button class="badge rounded-pill text-bg-secondary" style="border: none">수정</button>
+                                <button type="submit"  class="badge rounded-pill text-bg-danger" style="border: none" role="button">삭제</button>
+                            </span>
+                    </form>
                   </span>
+
+                  <hr>
                 </li>
               </ul>
+
+<!--                여기에 댓글 다음 페이지 추가 해야함-->
+                <div class="container text-center">
+                <span th:if="${commentsPrePage}">
+<!--                  다음 페이지 이동 버튼-->
+                  <a style="color: #1a1e21" th:href="@{/board/{boardId}/(boardId=${board.id},page=${pageNum}-1)}" role="button" ><ion-icon name="caret-back"></ion-icon></a>
+                </span>
+                  <span th:if="${commentsNextPage}">
+<!--                    이전페이지 이동 버튼-->
+                    <a style="color: #1a1e21" th:href="@{/board/{boardId}/(boardId=${board.id}, page=${pageNum}+1)}" role="button" ><ion-icon name="caret-forward"></ion-icon></a>
+                  </span>
+                </div>
+              </div>
             </div>
             <hr>
             <div class="card">
               <div class="card-header">댓글 작성</div>
-              <form action="#">
-                <input type="hidden" id="boardId" th:value="${board.id}"/>
+              <form th:action="@{/board/{boardId}/comment (boardId=${board.id})}" method="post">
                 <div class="card-body">
-                  <textarea id="comment" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
+                  <textarea name="commentContent" class="form-control" rows="3" placeholder="댓글을 입력하세요"></textarea>
                 </div>
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">작성</button>
@@ -65,6 +94,7 @@
 </div>
 
 <script src="/assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
   </body>
 </html>
