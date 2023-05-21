@@ -19,8 +19,8 @@
 
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10"
-                disabled th:text="${board.content}"></textarea>
+                <span class="form-control" id="exampleFormControlTextarea1" th:utext="${board.content}"
+                style="min-height: 200px"></span>
               </div>
             </form>
             <div th:if="${writer}">
