@@ -1,12 +1,16 @@
 package deu.hellostock.controller;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import deu.hellostock.dto.BoardDTO;
 import deu.hellostock.dto.CommentDTO;
 import deu.hellostock.dto.SessionDTO;
+import deu.hellostock.entity.UploadFile;
 import deu.hellostock.service.BoardService;
 import deu.hellostock.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -15,9 +19,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 @Slf4j
 @Controller
@@ -45,6 +51,7 @@ public class BoardController {
     }
     @PostMapping("/board")
     public String boardWrite(@Validated @ModelAttribute("board") BoardDTO boardDto, BindingResult bindingResult, HttpServletRequest request){
+        log.info("content = {}",boardDto.getContent());
         if(bindingResult.hasErrors()){
             log.debug("errors = {}",bindingResult);
             return "board-write";
@@ -107,5 +114,13 @@ public class BoardController {
         model.addAttribute("pageNum",page);
         model.addAttribute("keyword",keyword);
         return "boards-search";
+    }
+    @PostMapping("/board/upload-image")
+    @ResponseBody
+    public String uploadImage(@RequestParam("file") MultipartFile imageFile, Model model) throws IOException {
+        log.info("imageFile = {}",imageFile);
+        UploadFile uploadFile = boardService.storeFile(imageFile);
+        log.info(boardService.getFullPath(uploadFile.getUploadFileName()));
+        return "/images/" +uploadFile.getStoreFileName();
     }
 }
