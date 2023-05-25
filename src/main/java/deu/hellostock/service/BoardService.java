@@ -4,13 +4,20 @@ import deu.hellostock.dto.BoardDTO;
 import deu.hellostock.dto.SessionDTO;
 import deu.hellostock.entity.Board;
 import deu.hellostock.entity.Member;
+import deu.hellostock.entity.UploadFile;
 import deu.hellostock.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -18,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class BoardService {
 
+    @Value("${file.dir}")
+    private String fileDir;
     private final BoardRepository boardRepository;
     private final MemberService memberService;
     @Transactional
@@ -62,5 +71,27 @@ public class BoardService {
                 .updateTime(board.getUpdateDate())
                 .build();
     }
+    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
+        if(multipartFile.isEmpty()){
+            return null;
+        }
+        String originalFilename = multipartFile.getOriginalFilename();
+        //확장자 꺼내기
+        String storeFileName = createStoreFileName(originalFilename);
+        multipartFile.transferTo(new File(getFullPath(storeFileName)));
+        return new UploadFile(originalFilename,storeFileName);
+    }
+    private String extractExt(String originalFilename) {
+        int pos = originalFilename.lastIndexOf(".");
+        return originalFilename.substring(pos + 1);
+    }
+    private String createStoreFileName(String originalFilename) {
+        String ext = extractExt(originalFilename);
+        String uuid = UUID.randomUUID().toString();
+        return uuid + "." + ext;
+    }
 
+    public String getFullPath(String fileName){
+        return fileDir+fileName;
+    }
 }

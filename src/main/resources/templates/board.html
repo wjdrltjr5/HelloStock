@@ -4,6 +4,11 @@
  </head>
   <body>
 <header th:replace="header.html :: header"></header>
+<script th:if="${msg != null}" th:inline="javascript">
+    /* <![CDATA[ */
+    let msg = [[${msg}]];
+    alert(msg);
+</script>
 <div class="container-fluid">
   <div class="row">
     <nav th:replace="nav.html :: nav"></nav>
@@ -19,11 +24,15 @@
 
               <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10"
-                disabled th:text="${board.content}"></textarea>
+                <span class="form-control" id="exampleFormControlTextarea1" th:utext="${board.content}"
+                style="min-height: 200px"></span>
               </div>
             </form>
-            <div th:if="${writer}">
+              <div style="text-align: center;font-size: large">
+              <p th:text="${like}">110</p>
+              <a th:href="@{/board/{id}/like (id=${board.id})}"><ion-icon name="thumbs-up-sharp"></ion-icon></a>
+              </div>
+              <div th:if="${writer}">
               <form th:action="@{/board/{id} (id=${board.id})}" th:method="delete">
             <a class="btn btn-primary" th:href="@{/board/{id}/edit(id=${board.id}) }">수정</a>
               <button class="btn btn-danger" type="submit">삭제</button>
@@ -59,7 +68,6 @@
                 </li>
               </ul>
 
-<!--                여기에 댓글 다음 페이지 추가 해야함-->
                 <div class="container text-center">
                 <span th:if="${commentsPrePage}">
 <!--                  다음 페이지 이동 버튼-->
