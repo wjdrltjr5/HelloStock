@@ -27,8 +27,10 @@
     </div>
 </div>
 <script src="/js/ckeditor.js"></script>
+<script src="/js/CustomUploadAdapter.js"></script>
 <script>
     ClassicEditor.create( document.querySelector( '#exampleFormControlTextarea1' ),{
+        extraPlugins: [MyCustomUploadAdapterPlugin],
         mediaEmbed: {
             previewsInData: true
         }

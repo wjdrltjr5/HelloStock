@@ -1,16 +1,14 @@
 package deu.hellostock.controller;
 
-import com.sun.tools.jconsole.JConsoleContext;
 import deu.hellostock.dto.BoardDTO;
 import deu.hellostock.dto.CommentDTO;
 import deu.hellostock.dto.SessionDTO;
 import deu.hellostock.entity.UploadFile;
 import deu.hellostock.service.BoardService;
 import deu.hellostock.service.CommentsService;
+import deu.hellostock.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -20,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,6 +28,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
+    private final LikeService likeService;
     private final BoardService boardService;
     private final CommentsService commentsService;
 
@@ -71,6 +71,7 @@ public class BoardController {
         Page<CommentDTO> commentsPaging = commentsService.findAll(pageRequest, boardId);
         List<CommentDTO> comments = commentsPaging.getContent();
         long count = commentsPaging.getTotalElements();
+        int like = likeService.getLikeCount(boardId);
         if (member != null && board.getMemberid().equals(member.getMemberid())){
             model.addAttribute("writer",true);
         }
@@ -83,6 +84,7 @@ public class BoardController {
         model.addAttribute("comments",comments);
         model.addAttribute("count",count);
         model.addAttribute("board", board);
+        model.addAttribute("like",like);
         return "board";
     }
     @GetMapping("/board/{board-id}/edit")
@@ -123,4 +125,13 @@ public class BoardController {
         log.info(boardService.getFullPath(uploadFile.getUploadFileName()));
         return "/images/" +uploadFile.getStoreFileName();
     }
+
+    @GetMapping("/board/{boardId}/like")
+    public String clickLike(@PathVariable Long boardId, HttpSession session,RedirectAttributes redirectAttributes){
+        SessionDTO member = (SessionDTO) session.getAttribute("member");
+        String msg = likeService.clickLike(boardId, member.getMemberid());
+        redirectAttributes.addFlashAttribute("msg",msg);
+        return "redirect:/board/"+boardId;
+    }
+
 }
