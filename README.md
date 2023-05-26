@@ -19,11 +19,25 @@
 
 ## DB ERD
 ***
-![img.png](img.png)
+![img.png](readme_image/img.png)
 
 ## 동작 화면
 ***
-
+### 게시판 화면
+![img_1.png](readme_image/img_1.png)
+### 게시글 작성 화면
+![img_2.png](readme_image/img_2.png)
+### 게시글 확인 화면
+![img_3.png](readme_image/img_3.png)
+### 주식 리스트 화면
+![img_4.png](readme_image/img_4.png)
+### 개별 주식 정보 화면
+![img_5.png](readme_image/img_5.png)
+![img_6.png](readme_image/img_6.png)
+### 관심 주식 리스트 화면
+![img_7.png](readme_image/img_7.png)
+### 마이페이지 화면
+![img_7.png](readme_image/img_8.png)
 ## 추후 추가할 기능
 ***
 - [ ] 주식정보 리스트 레디스 적용 조회속도 높이기
