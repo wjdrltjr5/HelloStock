@@ -26,8 +26,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.csrf().disable();
         http.authorizeRequests()
-               // .antMatchers("/board-write").hasRole("ROLE_USER")
                 .antMatchers("/","/stock").permitAll()
+                .antMatchers("/board/**","/mystock","/mypage").hasRole("USER")
                 .and()
                 .formLogin()
                 .loginPage("/signin")
