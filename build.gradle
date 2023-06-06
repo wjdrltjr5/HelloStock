@@ -35,6 +35,8 @@ dependencies {
     implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.7.1'
     implementation 'com.navercorp.lucy:lucy-xss-servlet:2.0.1'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
 
 

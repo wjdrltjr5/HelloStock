@@ -3,6 +3,7 @@ package deu.hellostock.service;
 import deu.hellostock.api.StockAPI;
 import deu.hellostock.dto.Item;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,11 +16,11 @@ import java.util.stream.Collectors;
 public class StockService {
 
     private final StockAPI stockAPIService;
-
+    @Cacheable(value = "searchStocks")
     public List<Item> searchStocks(int page, String keyword){
         return stockAPIService.searchStocks(page,keyword);
     }
-
+    @Cacheable(value = "totalCount")
     public long totalCount(String keyword){
         return stockAPIService.totalCount(keyword);
     }
