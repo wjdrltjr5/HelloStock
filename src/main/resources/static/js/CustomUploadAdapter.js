@@ -12,6 +12,8 @@ class CustomUploadAdapter {
     upload() {
         // 파일 업로드 로직을 여기에 작성합니다.
         // 서버로 파일을 업로드하고, 업로드된 파일의 URL을 반환해야 합니다.
+        const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+        const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
 
         return this.loader.file
             .then(file => {
@@ -26,7 +28,7 @@ class CustomUploadAdapter {
                     // 예시 코드:
                     const xhr = new XMLHttpRequest();
                     xhr.open('POST', '/board/upload-image', true);
-
+                    xhr.setRequestHeader(header, token);
                     xhr.onload = () => {
                         if (xhr.status === 200) {
                             const response = xhr.responseText;
