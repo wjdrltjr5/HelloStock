@@ -18,6 +18,10 @@
 <link href="/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+      .field-error{
+        border-color: #dc3545;
+        color: #dc3545;
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -77,23 +81,27 @@
   <body class="text-center">
     
 <main class="form-signin w-100 m-auto">
-  <form method="post" action="/signup">
+  <form method="post" th:action th:object="${memberDto}">
     <h1 class="h3 mb-3 fw-normal">Hello Stock</h1>
     <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
-
+    <p th:if="${errormessage != null}" th:text="${errormessage}" class="field-error"></p>
     <div class="form-floating">
-      <input type="email" class="form-control" id="username" name="username" placeholder="name@example.com">
+      <input type="email" class="form-control" id="username"  th:field="*{username}" name="username" placeholder="name@example.com">
       <label for="username">Email address</label>
     </div>
+    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="field-error">오류</p>
 
     <div class="form-floating">
-      <input type="text" class="form-control" id="nickname" name="nickname" placeholder="NickName">
+      <input type="text" class="form-control" id="nickname"  th:field="*{nickname}"  name="nickname" placeholder="NickName">
       <label for="nickname">Nick name</label>
     </div>
+    <p th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="field-error">오류</p>
+
     <div class="form-floating">
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+      <input type="password" class="form-control" id="password" th:field="*{password}" name="password" placeholder="Password">
       <label for="password">Password</label>
     </div>
+    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="field-error">오류</p>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
     <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>

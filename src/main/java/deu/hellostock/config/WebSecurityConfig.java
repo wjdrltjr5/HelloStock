@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -19,6 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final CustomOauth2MemberService customOauth2MemberService;
+    private final AuthenticationFailureHandler customFailureHandler;
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -34,6 +36,7 @@ public class WebSecurityConfig {
                 .formLogin()
                 .loginPage("/signin")
                 .loginProcessingUrl("/signin")
+                .failureHandler(customFailureHandler)
                 .defaultSuccessUrl("/")
                 .and()
                 .logout()

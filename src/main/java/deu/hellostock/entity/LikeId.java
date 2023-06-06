@@ -12,8 +12,10 @@ import java.io.Serializable;
 public class LikeId  implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberid")
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boardid")
     private Board board;
 }

@@ -71,10 +71,12 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-    public boolean usernameDuplicationCheck(String username){
+    public boolean checkUsernameDuplication(String username){
         return memberRepository.existsByUsername(username);
     }
-
+    public boolean checkNicknameDuplication(String nickname){
+        return memberRepository.existsByNickname(nickname);
+    }
     private boolean checkUsername(String nickname){
         Optional<Member> byUsername = memberRepository.findByUsername(nickname);
         return byUsername.isEmpty();

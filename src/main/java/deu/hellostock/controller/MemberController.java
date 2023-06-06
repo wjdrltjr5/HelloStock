@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,22 +22,29 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/signin")
-    public String signin(){
+    public String signin(@RequestParam(required = false,name = "errormessage")String errorMessage,Model model){
+        model.addAttribute("errormessage",errorMessage);
         return "signin";
     }
     @GetMapping("/signup")
-    public String signup(){
+    public String signup(Model model){
+        model.addAttribute("memberDto",new MemberDTO());
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signupPost(@Validated MemberDTO memberDto, BindingResult bindingResult, Model model){
+    public String signupPost(@ModelAttribute("memberDto") @Validated MemberDTO memberDto, BindingResult bindingResult, Model model,
+                             RedirectAttributes redirect){
         log.info("memberDto={}",memberDto.toString());
-//        다른거 개발 끝나고 풀기
-//        if(bindingResult.hasErrors()){
-//            return"/signup";
-//        }
-        if (memberService.usernameDuplicationCheck(memberDto.getUsername())){
+        if(bindingResult.hasErrors()){
+            return"signup";
+        }
+        if (memberService.checkNicknameDuplication(memberDto.getNickname())){
+            redirect.addFlashAttribute("errormessage","닉네임중복");
+            return "redirect:/signup";
+        }
+        if (memberService.checkUsernameDuplication(memberDto.getUsername())){
+            redirect.addFlashAttribute("errormessage","이메일중복");
             return "redirect:/signup";
         }
         memberService.signUp(memberDto);
