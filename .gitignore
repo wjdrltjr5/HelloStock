@@ -9,6 +9,7 @@ test/
 application-apikey.properties
 application-db.properties
 application-oauth2.properties
+application-redis.properties
 ### STS ###
 .apt_generated
 .classpath
