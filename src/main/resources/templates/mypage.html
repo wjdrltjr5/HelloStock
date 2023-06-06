@@ -24,7 +24,7 @@
         <h1 class="h2" >마이페이지</h1>
       </div>
       <div class = "container text-center">
-        <form class="row g-3 w-100 m-auto" method="post">
+        <form class="row g-3 w-100 m-auto" method="post" th:action="@{/mypage/nickname}">
           <div class="col-auto">
             <label>
               <input type="text" readonly class="form-control-plaintext"  value="NickName : " />
@@ -55,7 +55,7 @@
       </div>
         <br>
         <div>
-          <form th:method="delete" action="/mypage" onsubmit="return checkButton()">
+          <form th:method="delete" th:action="@{/mypage}" onsubmit="return checkButton()">
           <input type="submit" class="btn btn-danger" style="margin: 0 auto; display: block"  value="회원탈퇴"></a>
           </form>
         </div>

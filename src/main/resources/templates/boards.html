@@ -15,7 +15,7 @@
           <i class="fas fa-edit"></i> 글 작성
         </a>
       </div>
-      <form class="d-flex" role="search" action="/boards/search">
+      <form class="d-flex" role="search" action="/boards/search" th:action="@{/boards/search}">
         <input class="form-control me-2" type="search" name="keyword" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>

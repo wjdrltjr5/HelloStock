@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">글작성</h1>
             </div>
-            <form action="/board" method="post" th:object="${board}">
+            <form action="/board" th:action="@{/board}" method="post" th:object="${board}">
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="title" th:field="*{title}">
