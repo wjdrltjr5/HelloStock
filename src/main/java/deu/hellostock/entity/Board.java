@@ -32,6 +32,8 @@ public class Board extends TimeEntity {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "board")
     private List<Comments> comments = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "likeId.board")
+    private List<Like> likes = new ArrayList<>();
     @Column(unique = true)
     private String nickname;
 

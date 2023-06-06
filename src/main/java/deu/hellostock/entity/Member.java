@@ -39,6 +39,9 @@ public class Member extends TimeEntity {
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true,mappedBy = "member")
     private List<Comments> comments = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "likeId.member")
+    private List<Like> likes = new ArrayList<>();
+
     public void updateNickname(String nickname){
         this.nickname = nickname;
     }

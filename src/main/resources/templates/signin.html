@@ -74,11 +74,14 @@
     <link href="/css/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
 <main class="form-signin w-100 m-auto">
   <form action="/signin" method="post">
     <h1 class="h3 mb-3 fw-normal">Hello Stock</h1>
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div th:if="${errormessage != null}">
+      <p th:text="${errormessage}" style="color: red"></p>
+    </div>
 
     <div class="form-floating">
       <input type="email" class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
