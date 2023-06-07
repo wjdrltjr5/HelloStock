@@ -14,8 +14,9 @@
 
 ## 사용도구
 ***
-| spring boot | gradle |h2 |java11| IntelliJ|Thymeleaf|redis|
-|-------------|--------|----|---|---|---|---|
+| spring boot                              | gradle                                   | h2                                    | java11                                 | IntelliJ                                     | Thymeleaf                                      | redis                                   |
+|------------------------------------------|------------------------------------------|---------------------------------------|----------------------------------------|----------------------------------------------|------------------------------------------------|-----------------------------------------|
+| ![spring.png](readme_image%2Fspring.png) | ![gradle.png](readme_image%2Fgradle.png) | ![h2.png](readme_image%2Fh2.png)      | ![java.png](readme_image%2Fjava.png)   | ![intellij.png](readme_image%2Fintellij.png) | ![thymeleaf.png](readme_image%2Fthymeleaf.png) | ![redis.png](readme_image%2Fredis.png)  |
 
 ## DB ERD
 ***
@@ -34,6 +35,7 @@
 ### 개별 주식 정보 화면
 ![img_5.png](readme_image/img_5.png)
 ![img_6.png](readme_image/img_6.png)
+![img.png](readme_image%2Fimg.png)
 ### 관심 주식 리스트 화면
 ![img_7.png](readme_image/img_7.png)
 ### 마이페이지 화면
