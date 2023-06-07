@@ -2,6 +2,7 @@ package deu.hellostock.controller;
 
 import deu.hellostock.dto.CompanyInfo;
 import deu.hellostock.dto.Item;
+import deu.hellostock.dto.NewsItem;
 import deu.hellostock.service.CompanyInfoService;
 import deu.hellostock.service.StockService;
 import lombok.RequiredArgsConstructor;
@@ -53,12 +54,14 @@ public class StockController {
     public String stock(@PathVariable("stockname")String stockName,Model model){
 
         List<Item> stocks = stockService.getStock(1, stockName);
+        List<NewsItem> newsItems = stockService.getNewsItem(stockName);
         Map<String, ArrayList<String>> stockData = stockService.getStockData(1, stockName);
         CompanyInfo companyInfo = companyInfoService.getCompanyInfo(stocks.get(0).getSrtnCd());
 
         log.info("CompanyInfo = {}", companyInfo);
 
         model.addAttribute("stocks",stocks);
+        model.addAttribute("newsItems",newsItems);
         model.addAttribute("labels",stockData.get("labels"));
         model.addAttribute("data",stockData.get("data"));
         model.addAttribute("companyInfo",companyInfo);
