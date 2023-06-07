@@ -84,6 +84,20 @@
         </tr>
         </tbody>
       </table>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>관련 뉴스</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="newsItem : ${newsItems}">
+          <th><a th:href="${newsItem.link}" th:utext="${newsItem.title}"></a></th>
+        </tr>
+        </tbody>
+      </table>
+
     </main>
   </div>
 </div>
