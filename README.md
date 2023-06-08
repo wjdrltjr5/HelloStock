@@ -18,6 +18,8 @@
 |------------------------------------------|------------------------------------------|---------------------------------------|----------------------------------------|----------------------------------------------|------------------------------------------------|-----------------------------------------|
 | ![spring.png](readme_image%2Fspring.png) | ![gradle.png](readme_image%2Fgradle.png) | ![h2.png](readme_image%2Fh2.png)      | ![java.png](readme_image%2Fjava.png)   | ![intellij.png](readme_image%2Fintellij.png) | ![thymeleaf.png](readme_image%2Fthymeleaf.png) | ![redis.png](readme_image%2Fredis.png)  |
 
+## 전체 구조도
+![image.png](readme_image%2Fimage.png)
 ## DB ERD
 ***
 ![img.png](readme_image/erd.png)

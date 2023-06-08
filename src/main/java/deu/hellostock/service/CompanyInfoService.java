@@ -1,6 +1,6 @@
 package deu.hellostock.service;
 
-import deu.hellostock.api.StockCompanyInformaionAPI;
+import deu.hellostock.api.StockCompanyInformationAPI;
 import deu.hellostock.dto.CompanyInfo;
 import deu.hellostock.entity.Corp;
 import deu.hellostock.repository.CorpRepository;
@@ -22,7 +22,7 @@ import java.io.IOException;
 @Service
 public class CompanyInfoService {
     private final CorpRepository corpRepository;
-    private final StockCompanyInformaionAPI api;
+    private final StockCompanyInformationAPI api;
     public void saveCorps(File xmlFile) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();

@@ -77,7 +77,7 @@ public class MemberController {
     }
     @PatchMapping("mypage/password")
     public String updatePassword(@RequestParam String password, HttpSession session){
-        log.info("실행 여부 확인 ㅋ");
+        log.info("실행 여부 확인");
         memberService.updatePassword(password,session);
         session.invalidate();
         return "redirect:/signin";

@@ -1,14 +1,8 @@
 package deu.hellostock.api;
 
 import deu.hellostock.dto.CompanyInfo;
-import deu.hellostock.dto.Item;
-import deu.hellostock.dto.StockResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -16,11 +10,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.List;
+
 @Service
 @Slf4j
-public class StockCompanyInformaionAPI {
+public class StockCompanyInformationAPI {
 
 
     @Value("${company.api.key}")
